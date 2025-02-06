@@ -54,14 +54,6 @@ public class Scheduler {
             currentMinute += lesson.getDuration() + breakTime;
             currentHour += currentMinute / 60;
             currentMinute %= 60;
-
-            try {
-                System.out.println("توصیه های مطالعه:");
-                OllamaHelper ollamaHelper = new OllamaHelper();
-                String tips = OllamaHelper.getStudyTips(lesson.getName(), lesson.getExamScore());
-            } catch (IOException e) {
-                System.out.println("خطا در دریافت پیشنهادات");
-            }
         }
 
         System.out.println("مرور دروس:");
@@ -83,6 +75,16 @@ public class Scheduler {
         int remainingTime = totalMinutes - allocateMinutes;
         if (remainingTime > 0) {
             distributeTestTime(remainingTime , lessons , currentHour, currentMinute);
+        }
+
+        for(Lesson lesson : lessons) {
+            try {
+                System.out.println("توصیه های مطالعه:" + lesson.getName());
+                OllamaHelper ollamaHelper = new OllamaHelper();
+                String tips = OllamaHelper.getStudyTips(lesson.getName(), lesson.getExamScore());
+            } catch (IOException e) {
+                System.out.println("");
+            }
         }
     }
 
@@ -108,6 +110,7 @@ public class Scheduler {
         }
 
     }
+
     private void updateTime(int minutes) {
         currentMinute += minutes;
         currentHour += currentMinute / 60;

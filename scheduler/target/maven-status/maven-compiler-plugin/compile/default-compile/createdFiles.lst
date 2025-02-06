@@ -1,1 +1,5 @@
+org/example/OllamaHelper.class
 org/example/Main.class
+org/example/Lesson.class
+org/example/Scheduler.class
+org/example/OllamaResponse.class
